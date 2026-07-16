@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrimeLink Cybercafe - CBT Registration & Online Services</title>
+    <title>Chima CanC Computer & Cafe – CBT & Online Services</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,7 +102,7 @@
             transition: max-height 350ms cubic-bezier(0.4, 0, 0.2, 1), padding 350ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         .faq-answer.open {
-            max-height: 250px;
+            max-height: 300px;
             padding-top: 12px;
             padding-bottom: 12px;
         }
@@ -118,6 +118,44 @@
             border-color: #1a1a1a;
             box-shadow: 0 0 0 2px rgba(26,26,26,0.15);
         }
+
+        .service-tag {
+            background: #1a1a1a;
+            color: white;
+            font-size: 0.6rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 999px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            display: inline-block;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Desktop nav link styles */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+            color: #4a4a4a;
+            transition: color 0.2s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+        }
+        .nav-link:hover {
+            color: #1a1a1a;
+            background: #f5f5f5;
+        }
+        .nav-link.active {
+            color: #1a1a1a;
+            background: #f0f0f0;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-[#fafafa] font-sans text-[#1a1a1a]">
@@ -129,12 +167,12 @@
     <aside id="sidebar" class="sidebar sidebar-closed fixed top-0 left-0 z-40 h-full w-64 lg:w-56 bg-[#1a1a1a] text-white flex flex-col lg:translate-x-0">
         <div class="px-5 py-6 border-b border-white/10">
             <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
-                    <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain rounded-lg" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-semibold text-xs text-[#1a1a1a]\'>PL</span>';">
+                <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                    <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-bold text-xs text-[#1a1a1a]\'>CC</span>';">
                 </div>
                 <div>
-                    <p class="font-semibold text-sm leading-tight tracking-tight">PrimeLink</p>
-                    <p class="text-[10px] text-gray-400 font-mono tracking-wide">CYBERCAFE</p>
+                    <p class="font-semibold text-sm leading-tight tracking-tight">Chima CanC</p>
+                    <p class="text-[10px] text-gray-400 font-mono tracking-wide">COMPUTER & CAFE</p>
                 </div>
             </div>
         </div>
@@ -165,7 +203,7 @@
             <div class="bg-white/5 rounded-lg px-3 py-3 text-center">
                 <i class="fa-solid fa-clock text-gray-400 text-sm block mb-1"></i>
                 <p class="text-[10px] text-gray-400 font-mono">MON-SAT</p>
-                <p class="text-xs font-medium text-white">8AM - 7PM</p>
+                <p class="text-xs font-medium text-white">8AM – 7PM</p>
             </div>
         </div>
     </aside>
@@ -173,31 +211,44 @@
     <!-- ==================== MAIN CONTENT ==================== -->
     <div class="lg:ml-56 flex flex-col min-h-screen">
 
-        <!-- ==================== HEADER ==================== -->
+        <!-- ==================== HEADER WITH DESKTOP NAV ==================== -->
         <header class="sticky top-0 z-20 surface elevation-2">
-            <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 max-w-4xl mx-auto">
+            <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 max-w-6xl mx-auto">
                 <div class="flex items-center gap-2 sm:gap-3">
                     <button onclick="toggleSidebar()" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition flex-shrink-0" aria-label="Menu">
                         <i class="fa-solid fa-bars text-sm sm:text-base text-gray-700"></i>
                     </button>
 
-                    <!-- Logo -->
-                    <div class="logo-box">
-                        <img src="/images/logo.png" alt="PrimeLink Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-bold text-sm\'>PL</span>';">
-                    </div>
-
-                    <div class="hidden sm:block">
-                        <p class="font-semibold text-sm tracking-tight">PrimeLink Cybercafe</p>
-                        <p class="text-[10px] text-gray-500 font-mono tracking-wide">CBT & ONLINE SERVICES</p>
+                    <!-- Logo with Company Name -->
+                    <div class="flex items-center gap-2.5">
+                        <div class="logo-box">
+                            <img src="/images/logo.png" alt="Chima CanC Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-bold text-sm\'>CC</span>';">
+                        </div>
+                        <div class="leading-tight">
+                            <p class="font-bold text-xs sm:text-sm tracking-wide uppercase">Chima CanC Computer & Cafe</p>
+                            <p class="text-[8px] sm:text-[10px] text-gray-500 font-mono tracking-wider uppercase">CBT & Online Services</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-1 sm:gap-2">
-                    <a href="tel:+2348034567890" class="hidden md:flex items-center gap-1 px-2.5 py-2 text-xs font-medium text-gray-600 hover:text-gray-900 transition rounded-full hover:bg-gray-100">
-                        <i class="fa-solid fa-phone text-[10px]"></i>
-                        <span class="hidden lg:inline">0803 456 7890</span>
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-0.5">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#process" class="nav-link">Process</a>
+                    <a href="#satisfaction" class="nav-link">Reviews</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#contact" class="material-btn bg-[#1a1a1a] text-white px-4 py-2 rounded-full text-[11px] font-medium tracking-tight ml-2">
+                        Contact
                     </a>
-                    <a href="#contact" class="material-btn bg-[#1a1a1a] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-medium tracking-tight whitespace-nowrap">
+                </nav>
+
+                <!-- Mobile right actions -->
+                <div class="flex items-center gap-1 sm:gap-2 lg:hidden">
+                    <a href="tel:+2348157448827" class="flex items-center gap-1 px-2 py-1.5 text-[10px] font-medium text-gray-600 hover:text-gray-900 transition rounded-full hover:bg-gray-100">
+                        <i class="fa-solid fa-phone text-[9px]"></i>
+                    </a>
+                    <a href="#contact" class="material-btn bg-[#1a1a1a] text-white px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full text-[10px] font-medium tracking-tight whitespace-nowrap">
                         Get Started
                     </a>
                 </div>
@@ -212,16 +263,13 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14 md:py-16">
                 <div class="grid lg:grid-cols-2 gap-8 items-center">
                     <div>
-                        <span class="inline-block font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest border border-gray-300 px-2.5 py-1 rounded-full mb-4">
-                            Trusted Since 2018
-                        </span>
                         <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.1] tracking-tight mb-4">
                             Your trusted partner for
                             <span class="text-gray-400">CBT registration</span>
                             & online services.
                         </h1>
                         <p class="text-sm text-gray-500 leading-relaxed mb-6 max-w-lg">
-                            We handle JAMB, WAEC, NECO, IELTS registrations with precision. Plus expert document processing, graphic design, and printing.
+                            We handle JAMB, WAEC, NECO, NYSC, CAC, NERD registrations with precision. Plus expert document processing, graphic design, printing, and more.
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <a href="#services" class="material-btn bg-[#1a1a1a] text-white px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5">
@@ -234,11 +282,7 @@
                     </div>
                     <div class="relative">
                         <div class="aspect-[4/3] bg-gray-200 rounded-xl sm:rounded-2xl flex items-center justify-center overflow-hidden">
-                            <div class="text-center text-gray-400">
-                                <i class="fa-solid fa-image text-4xl sm:text-5xl block mb-2 opacity-30"></i>
-                                <p class="font-mono text-xs font-medium opacity-50">Hero Image</p>
-                                <p class="font-mono text-[10px] opacity-40">800 x 600 px</p>
-                            </div>
+                            <img src="/images/hero.png" alt="Chima CanC Cybercafe" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-center text-gray-400\'><i class=\'fa-solid fa-computer text-4xl sm:text-5xl block mb-2 opacity-30\'></i><p class=\'font-mono text-xs font-medium opacity-50\'>Chima CanC Cybercafe</p><p class=\'font-mono text-[10px] opacity-40\'>Your one-stop solution</p></div>';">
                         </div>
                         <div class="absolute -bottom-3 -left-3 surface elevation-3 rounded-lg sm:rounded-xl px-3 py-3">
                             <p class="font-mono text-lg sm:text-xl font-bold tracking-tight">5,200+</p>
@@ -258,73 +302,115 @@
                     <p class="text-sm text-gray-500 max-w-xl leading-relaxed">From exam registration to professional printing — quality, speed, and accuracy.</p>
                 </div>
 
+                <!-- Service grid – updated with all offerings -->
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <!-- Service cards unchanged -->
+                    <!-- CBT & REGISTRATIONS -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                             <i class="fa-solid fa-display text-white text-sm"></i>
                         </div>
-                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">CBT Exam Registration</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">JAMB UTME, WAEC GCE, NECO SSCE, NABTEB, IELTS, TOEFL, and professional exams.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">CBT & Registrations</h3>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>NYSC, NERD, CAC Registration</li>
+                            <li>WAEC, GCE, NECO, NABTEB</li>
+                            <li>JAMB UTME & Post-UTME</li>
+                            <li>Original JAMB Result Printing</li>
+                            <li>Admission Letter Printing</li>
+                        </ul>
                     </div>
 
+                    <!-- DOCUMENT SERVICES -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                             <i class="fa-solid fa-file-word text-white text-sm"></i>
                         </div>
-                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Document Processing</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">Professional CV writing, business letters, project reports, thesis formatting, and data entry.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Document & Legal</h3>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>Online Affidavit</li>
+                            <li>Remitta Payment</li>
+                            <li>ICT & Consultancy</li>
+                            <li>Vehicle CMR Registration</li>
+                            <li>Typesetting & Data Entry</li>
+                        </ul>
                     </div>
 
+                    <!-- PRINTING & BINDING -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                             <i class="fa-solid fa-print text-white text-sm"></i>
                         </div>
-                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Printing & Photocopy</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">High-quality B/W and color printing, scanning, lamination, spiral binding, bulk photocopy.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Printing & Finishing</h3>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>Photocopy & Scanning</li>
+                            <li>Laminating Documents</li>
+                            <li>Spiral Binding</li>
+                            <li>Bulk Printing</li>
+                            <li>Plastic NIN Printing</li>
+                        </ul>
                     </div>
 
+                    <!-- GRAPHIC DESIGN -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                             <i class="fa-solid fa-paintbrush text-white text-sm"></i>
                         </div>
                         <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Graphic Design</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">Custom logos, flyers, banners, business cards, ID cards, wedding invitations, social media creatives.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>Banners & Flyers</li>
+                            <li>Birthday & Child Dedication Cards</li>
+                            <li>Wedding & Complementary Cards</li>
+                            <li>Company Letterheads</li>
+                            <li>Certificate Printing</li>
+                        </ul>
                     </div>
 
+                    <!-- PASSPORT & PHOTO -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                             <i class="fa-solid fa-camera-retro text-white text-sm"></i>
                         </div>
-                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Passport Photographs</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">Instant digital passport photos meeting official requirements for visas, applications, and IDs.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Passport & ID</h3>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>Instant Passport Photos</li>
+                            <li>Plastic NIN Printing</li>
+                            <li>ID Card Production</li>
+                            <li>Visa & Application Photos</li>
+                        </ul>
                     </div>
 
+                    <!-- TRAINING & INTERNET -->
                     <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
-                            <i class="fa-solid fa-credit-card text-white text-sm"></i>
+                            <i class="fa-solid fa-globe text-white text-sm"></i>
                         </div>
-                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Online Payments</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-3">Secure processing of bills, taxes, subscriptions, vendor payments, and fund transfers.</p>
-                        <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                            Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
+                        <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Training & Internet</h3>
+                        <ul class="text-xs text-gray-500 leading-relaxed space-y-0.5 list-disc list-inside">
+                            <li>Computer Training</li>
+                            <li>All Internet Services</li>
+                            <li>Online Payments</li>
+                            <li>Bulk SMS & Email</li>
+                        </ul>
                     </div>
+                </div>
+
+                <!-- extra service tags (quick overview) -->
+                <div class="mt-6 flex flex-wrap gap-1.5 justify-center">
+                    <span class="service-tag">NYSC</span>
+                    <span class="service-tag">NERD</span>
+                    <span class="service-tag">CAC</span>
+                    <span class="service-tag">WAEC</span>
+                    <span class="service-tag">GCE</span>
+                    <span class="service-tag">JAMB</span>
+                    <span class="service-tag">Post-UTME</span>
+                    <span class="service-tag">Affidavit</span>
+                    <span class="service-tag">Remitta</span>
+                    <span class="service-tag">CMR</span>
+                    <span class="service-tag">NIN</span>
+                    <span class="service-tag">Typesetting</span>
+                    <span class="service-tag">Laminating</span>
+                    <span class="service-tag">Binding</span>
+                    <span class="service-tag">Banners</span>
+                    <span class="service-tag">Flyers</span>
                 </div>
             </div>
         </section>
@@ -332,12 +418,8 @@
         <!-- ==================== IMAGE BANNER ==================== -->
         <div class="surface border-b border-[#e0e0e0]">
             <div class="max-w-4xl mx-auto px-4 sm:px-5 py-8">
-                <div class="bg-gray-200 rounded-xl sm:rounded-2xl flex items-center justify-center h-32 sm:h-40 md:h-48">
-                    <div class="text-center text-gray-400">
-                        <i class="fa-solid fa-image text-3xl sm:text-4xl block mb-1 opacity-30"></i>
-                        <p class="font-mono text-xs font-medium opacity-50">Full-Width Banner Placeholder</p>
-                        <p class="font-mono text-[10px] opacity-40">1200 x 300 px</p>
-                    </div>
+                <div class="bg-gray-200 rounded-xl sm:rounded-2xl flex items-center justify-center h-32 sm:h-40 md:h-48 overflow-hidden">
+                    <img src="/images/banner.png" alt="Chima CanC – Quality Printing & Design" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-center text-gray-400\'><i class=\'fa-solid fa-print text-3xl sm:text-4xl block mb-1 opacity-30\'></i><p class=\'font-mono text-xs font-medium opacity-50\'>Chima CanC – Quality Printing & Design</p><p class=\'font-mono text-[10px] opacity-40\'>We bring your ideas to life</p></div>';">
                 </div>
             </div>
         </div>
@@ -416,7 +498,7 @@
                                 <p class="text-[10px] text-gray-500 font-medium mt-1">5-Star Reviews</p>
                             </div>
                             <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 text-center">
-                                <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="6">0</p>
+                                <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="8">0</p>
                                 <p class="text-[10px] text-gray-500 font-medium mt-1">Years of Service</p>
                             </div>
                         </div>
@@ -480,16 +562,16 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-5 py-8">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <div class="rounded-lg sm:rounded-xl overflow-hidden aspect-square bg-gray-200">
-                        <img src="/images/1.png" alt="Gallery image 1" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs\'>Image 1</span></div>';">
+                        <img src="/images/1.png" alt="Document services" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs font-medium\'>Docs</span></div>';">
                     </div>
                     <div class="rounded-lg sm:rounded-xl overflow-hidden aspect-square bg-gray-200">
-                        <img src="/images/2.png" alt="Gallery image 2" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs\'>Image 2</span></div>';">
+                        <img src="/images/2.png" alt="Printing services" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs font-medium\'>Print</span></div>';">
                     </div>
                     <div class="rounded-lg sm:rounded-xl overflow-hidden aspect-square bg-gray-200">
-                        <img src="/images/3.png" alt="Gallery image 3" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs\'>Image 3</span></div>';">
+                        <img src="/images/3.png" alt="Graphic design" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs font-medium\'>Design</span></div>';">
                     </div>
                     <div class="rounded-lg sm:rounded-xl overflow-hidden aspect-square bg-gray-200">
-                        <img src="/images/4.png" alt="Gallery image 4" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs\'>Image 4</span></div>';">
+                        <img src="/images/4.png" alt="Photography services" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gray-200\'><span class=\'text-gray-400 text-xs font-medium\'>Photo</span></div>';">
                     </div>
                 </div>
             </div>
@@ -505,7 +587,6 @@
                     </div>
 
                     <div class="space-y-2">
-                        <!-- FAQ items unchanged -->
                         <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
                             <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
                                 What documents do I need for CBT registration?
@@ -588,12 +669,14 @@
                                 <label class="block text-xs font-medium text-gray-700 mb-1.5">Service Needed</label>
                                 <select class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition">
                                     <option value="">Select a service...</option>
-                                    <option>CBT Registration</option>
-                                    <option>Typing & Documents</option>
-                                    <option>Printing & Photocopy</option>
-                                    <option>Graphic Design</option>
-                                    <option>Passport Photograph</option>
-                                    <option>Online Payment</option>
+                                    <option>CBT Registration (JAMB, WAEC, NECO)</option>
+                                    <option>NYSC / NERD / CAC Registration</option>
+                                    <option>Document Processing & Typing</option>
+                                    <option>Printing, Photocopy & Lamination</option>
+                                    <option>Graphic Design (Banners, Flyers, Cards)</option>
+                                    <option>Passport Photograph & NIN Printing</option>
+                                    <option>Computer Training</option>
+                                    <option>Online Payment / Remitta</option>
                                     <option>Other</option>
                                 </select>
                             </div>
@@ -616,7 +699,10 @@
                                 <i class="fa-solid fa-location-dot text-white text-xs"></i>
                             </div>
                             <p class="font-semibold text-sm tracking-tight mb-1">Our Location</p>
-                            <p class="text-xs text-gray-500 leading-relaxed">Igbo-Etche Junction, Etche, Rivers State, Nigeria</p>
+                            <p class="text-xs text-gray-500 leading-relaxed">No.2 Aba Road, by Igboh Etche Junction, beside St. Joseph Catholic Church Igboh Etche, Rivers State.</p>
+                            <a href="https://maps.google.com/maps?q=Igbo-Etche+Junction+Rivers+State" target="_blank" class="text-[10px] font-medium text-gray-400 hover:text-gray-700 transition inline-flex items-center gap-1 mt-1">
+                                <i class="fa-brands fa-google"></i> View on Google Maps
+                            </a>
                         </div>
 
                         <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
@@ -624,8 +710,8 @@
                                 <i class="fa-solid fa-phone text-white text-xs"></i>
                             </div>
                             <p class="font-semibold text-sm tracking-tight mb-1">Phone & WhatsApp</p>
-                            <p class="text-xs text-gray-500">0803 456 7890</p>
-                            <p class="text-xs text-gray-500">0912 345 6789</p>
+                            <p class="text-xs text-gray-500">0815 744 8827</p>
+                            <p class="text-xs text-gray-500">0806 882 6823</p>
                         </div>
 
                         <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
@@ -633,7 +719,7 @@
                                 <i class="fa-solid fa-envelope text-white text-xs"></i>
                             </div>
                             <p class="font-semibold text-sm tracking-tight mb-1">Email</p>
-                            <p class="text-xs text-gray-500">hello@primelinkcyber.com</p>
+                            <p class="text-xs text-gray-500">chimacandccom@gmail.com</p>
                         </div>
 
                         <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
@@ -646,7 +732,7 @@
                             <p class="text-[10px] text-red-500 font-medium mt-1">Closed on Sundays</p>
                         </div>
 
-                        <!-- Google Maps Embed for Igbo-Etche Junction -->
+                        <!-- Google Maps Embed -->
                         <div class="rounded-xl overflow-hidden h-40 border border-[#e0e0e0]">
                             <iframe
                                 src="https://maps.google.com/maps?q=Igbo-Etche+Junction+Rivers+State&output=embed"
@@ -671,10 +757,10 @@
                     <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-2">Ready to get started?</h2>
                     <p class="text-sm text-gray-400 mb-6 max-w-md mx-auto leading-relaxed">Visit our cybercafe or send us a message to book your CBT registration slot today.</p>
                     <div class="flex flex-wrap justify-center gap-2">
-                        <a href="https://wa.me/2348034567890" target="_blank" class="material-btn bg-white text-[#1a1a1a] px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5">
+                        <a href="https://wa.me/2348157448827" target="_blank" class="material-btn bg-white text-[#1a1a1a] px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5">
                             <i class="fa-brands fa-whatsapp text-green-600"></i> Chat on WhatsApp
                         </a>
-                        <a href="tel:+2348034567890" class="material-btn border-2 border-white text-white px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5">
+                        <a href="tel:+2348157448827" class="material-btn border-2 border-white text-white px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5">
                             <i class="fa-solid fa-phone"></i> Call Now
                         </a>
                     </div>
@@ -688,33 +774,33 @@
                 <div class="grid sm:grid-cols-3 gap-6 mb-6">
                     <div class="sm:col-span-1">
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-7 h-7 bg-[#1a1a1a] rounded-md flex items-center justify-center">
-                                <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain rounded-md" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-semibold text-[10px] text-white\'>PL</span>';">
+                            <div class="w-7 h-7 bg-[#1a1a1a] rounded-md flex items-center justify-center overflow-hidden">
+                                <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-semibold text-[10px] text-white\'>CC</span>';">
                             </div>
-                            <span class="font-semibold text-sm tracking-tight">PrimeLink</span>
+                            <span class="font-semibold text-sm tracking-tight">Chima CanC</span>
                         </div>
-                        <p class="text-xs text-gray-500 leading-relaxed">Trusted CBT registration, document processing, and online services since 2018.</p>
+                        <p class="text-xs text-gray-500 leading-relaxed">Trusted CBT registration, document processing, and online services.</p>
                     </div>
                     <div>
                         <p class="font-semibold text-xs tracking-tight mb-2">Services</p>
                         <ul class="space-y-1.5 text-xs text-gray-500">
                             <li><a href="#" class="hover:text-gray-900 transition">CBT Registration</a></li>
-                            <li><a href="#" class="hover:text-gray-900 transition">Typing & Documents</a></li>
-                            <li><a href="#" class="hover:text-gray-900 transition">Printing & Photocopy</a></li>
-                            <li><a href="#" class="hover:text-gray-900 transition">Graphic Design</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">NYSC / NERD / CAC</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">Printing & Design</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">Computer Training</a></li>
                         </ul>
                     </div>
                     <div>
                         <p class="font-semibold text-xs tracking-tight mb-2">Contact</p>
                         <ul class="space-y-1.5 text-xs text-gray-500">
-                            <li>Igbo-Etche Junction, Rivers State</li>
-                            <li>0803 456 7890</li>
-                            <li>hello@primelinkcyber.com</li>
+                            <li>No.2 Aba Road, Igboh Etche, Rivers</li>
+                            <li>0815 744 8827</li>
+                            <li>chimacandccom@gmail.com</li>
                         </ul>
                     </div>
                 </div>
                 <div class="border-t border-[#e0e0e0] pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-                    <p>&copy; 2026 PrimeLink Cybercafe. All rights reserved.</p>
+                    <p>&copy; 2026 Chima CanC Computer & Cafe. All rights reserved.</p>
                     <div class="flex items-center gap-4">
                         <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-x-twitter"></i></a>
@@ -827,7 +913,8 @@
         counters.forEach(counter => counterObserver.observe(counter));
 
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.sidebar nav a');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sidebarLinks = document.querySelectorAll('.sidebar nav a');
 
         window.addEventListener('scroll', () => {
             let current = '';
@@ -837,7 +924,17 @@
                     current = section.getAttribute('id');
                 }
             });
+
+            // Update desktop nav links
             navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update sidebar links
+            sidebarLinks.forEach(link => {
                 link.classList.remove('bg-white/10', 'text-white');
                 link.classList.add('text-gray-300');
                 if (link.getAttribute('href') === '#' + current) {
@@ -847,7 +944,7 @@
             });
         });
 
-        console.log('PrimeLink Cybercafe - Ready');
+        console.log('Chima CanC Computer & Cafe - Ready');
     </script>
 
 </body>

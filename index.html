@@ -1,1 +1,875 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeLink Cybercafe - CBT Registration & Online Services</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --elevation-1: 0 1px 2px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08);
+            --elevation-2: 0 2px 4px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.08);
+            --elevation-3: 0 4px 8px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.06);
+            --elevation-4: 0 8px 16px rgba(0,0,0,0.08), 0 16px 32px rgba(0,0,0,0.06);
+            --transition-material: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .surface { background: #ffffff; }
+        .surface-alt { background: #f5f5f5; }
+        .elevation-1 { box-shadow: var(--elevation-1); }
+        .elevation-2 { box-shadow: var(--elevation-2); }
+        .elevation-3 { box-shadow: var(--elevation-3); }
+        .elevation-4 { box-shadow: var(--elevation-4); }
+
+        .material-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-material);
+            cursor: pointer;
+        }
+        .material-btn:active { transform: scale(0.97); }
+
+        /* Logo */
+        .logo-box {
+            width: clamp(36px, 7vw, 42px);
+            height: clamp(36px, 7vw, 42px);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--elevation-1);
+            flex-shrink: 0;
+        }
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-open { transform: translateX(0); }
+        .sidebar-closed { transform: translateX(-100%); }
+        @media (min-width: 1024px) {
+            .sidebar-closed { transform: translateX(0); }
+        }
+
+        .overlay {
+            transition: opacity 250ms ease, visibility 250ms ease;
+        }
+        .overlay-hidden { opacity: 0; visibility: hidden; }
+        .overlay-visible { opacity: 1; visibility: visible; }
+
+        /* FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 350ms cubic-bezier(0.4, 0, 0.2, 1), padding 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .faq-answer.open {
+            max-height: 250px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        html { scroll-behavior: auto; } /* We handle scroll via page switching */
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 4px; }
+
+        .material-input:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 2px rgba(26,26,26,0.15);
+        }
+
+        /* Page transition */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#fafafa] font-sans text-[#1a1a1a]">
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/40 z-30 overlay overlay-hidden lg:hidden" onclick="closeSidebar()"></div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="sidebar" class="sidebar sidebar-closed fixed top-0 left-0 z-40 h-full w-64 lg:w-56 bg-[#1a1a1a] text-white flex flex-col lg:translate-x-0">
+        <div class="px-5 py-6 border-b border-white/10">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
+                    <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain rounded-lg" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-semibold text-xs text-[#1a1a1a]\'>PL</span>';">
+                </div>
+                <div>
+                    <p class="font-semibold text-sm leading-tight tracking-tight">PrimeLink</p>
+                    <p class="text-[10px] text-gray-400 font-mono tracking-wide">CYBERCAFE</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-3 py-6 space-y-0.5 overflow-y-auto">
+            <p class="px-3 text-[9px] font-mono font-semibold text-gray-500 uppercase tracking-widest mb-4">Navigation</p>
+            <a href="#home" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium bg-white/10 text-white transition" data-page="home" onclick="closeSidebar()">
+                <i class="fa-solid fa-house w-4 text-center text-xs"></i> Home
+            </a>
+            <a href="#services" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 transition" data-page="services" onclick="closeSidebar()">
+                <i class="fa-solid fa-layer-group w-4 text-center text-xs"></i> Services
+            </a>
+            <a href="#process" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 transition" data-page="process" onclick="closeSidebar()">
+                <i class="fa-solid fa-arrows-spin w-4 text-center text-xs"></i> Our Process
+            </a>
+            <a href="#satisfaction" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 transition" data-page="satisfaction" onclick="closeSidebar()">
+                <i class="fa-solid fa-face-smile w-4 text-center text-xs"></i> Satisfaction
+            </a>
+            <a href="#faq" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 transition" data-page="faq" onclick="closeSidebar()">
+                <i class="fa-solid fa-circle-question w-4 text-center text-xs"></i> FAQ
+            </a>
+            <a href="#contact" class="nav-link flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/5 transition" data-page="contact" onclick="closeSidebar()">
+                <i class="fa-solid fa-envelope w-4 text-center text-xs"></i> Contact
+            </a>
+        </nav>
+
+        <div class="px-3 py-4 border-t border-white/10">
+            <div class="bg-white/5 rounded-lg px-3 py-3 text-center">
+                <i class="fa-solid fa-clock text-gray-400 text-sm block mb-1"></i>
+                <p class="text-[10px] text-gray-400 font-mono">MON-SAT</p>
+                <p class="text-xs font-medium text-white">8AM - 7PM</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="lg:ml-56 flex flex-col min-h-screen">
+
+        <!-- ==================== HEADER ==================== -->
+        <header class="sticky top-0 z-20 surface elevation-2">
+            <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 max-w-4xl mx-auto">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="toggleSidebar()" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition flex-shrink-0" aria-label="Menu">
+                        <i class="fa-solid fa-bars text-sm sm:text-base text-gray-700"></i>
+                    </button>
+
+                    <!-- Logo then name -->
+                    <div class="logo-box">
+                        <img src="/images/logo.png" alt="PrimeLink Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-bold text-sm\'>PL</span>';">
+                    </div>
+
+                    <div class="hidden sm:block">
+                        <p class="font-semibold text-sm tracking-tight">PrimeLink Cybercafe</p>
+                        <p class="text-[10px] text-gray-500 font-mono tracking-wide">CBT & ONLINE SERVICES</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1 sm:gap-2">
+                    <a href="tel:+2348034567890" class="hidden md:flex items-center gap-1 px-2.5 py-2 text-xs font-medium text-gray-600 hover:text-gray-900 transition rounded-full hover:bg-gray-100">
+                        <i class="fa-solid fa-phone text-[10px]"></i>
+                        <span class="hidden lg:inline">0803 456 7890</span>
+                    </a>
+                    <a href="#contact" class="material-btn bg-[#1a1a1a] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-medium tracking-tight whitespace-nowrap nav-link" data-page="contact">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+            <div class="h-[2px] bg-gray-100">
+                <div id="scrollProgress" class="h-full bg-[#1a1a1a] w-0 transition-all duration-200" style="width:0%;"></div>
+            </div>
+        </header>
+
+        <!-- Page sections container -->
+        <div class="flex-1">
+            <!-- ==================== HOME PAGE ==================== -->
+            <section id="home" class="page-section active">
+                <div class="surface-alt border-b border-[#e0e0e0]">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14 md:py-16">
+                        <div class="grid lg:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <span class="inline-block font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest border border-gray-300 px-2.5 py-1 rounded-full mb-4">
+                                    Trusted Since 2018
+                                </span>
+                                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.1] tracking-tight mb-4">
+                                    Your trusted partner for
+                                    <span class="text-gray-400">CBT registration</span>
+                                    & online services.
+                                </h1>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-6 max-w-lg">
+                                    We handle JAMB, WAEC, NECO, IELTS registrations with precision. Plus expert document processing, graphic design, and printing.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="#services" class="material-btn bg-[#1a1a1a] text-white px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5 nav-link" data-page="services">
+                                        Explore Services <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                    </a>
+                                    <a href="#contact" class="material-btn border-2 border-[#1a1a1a] text-[#1a1a1a] px-5 py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center gap-1.5 nav-link" data-page="contact">
+                                        Contact Us
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <div class="aspect-[4/3] bg-gray-200 rounded-xl sm:rounded-2xl flex items-center justify-center overflow-hidden">
+                                    <div class="text-center text-gray-400">
+                                        <i class="fa-solid fa-image text-4xl sm:text-5xl block mb-2 opacity-30"></i>
+                                        <p class="font-mono text-xs font-medium opacity-50">Hero Image</p>
+                                        <p class="font-mono text-[10px] opacity-40">800 x 600 px</p>
+                                    </div>
+                                </div>
+                                <div class="absolute -bottom-3 -left-3 surface elevation-3 rounded-lg sm:rounded-xl px-3 py-3">
+                                    <p class="font-mono text-lg sm:text-xl font-bold tracking-tight">5,200+</p>
+                                    <p class="text-[10px] text-gray-500 font-medium">Registrations Completed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SERVICES PAGE ==================== -->
+            <section id="services" class="page-section">
+                <div class="surface border-b border-[#e0e0e0]">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14">
+                        <div class="mb-8">
+                            <span class="font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest">Our Services</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-2 mb-2">Everything you need, done right.</h2>
+                            <p class="text-sm text-gray-500 max-w-xl leading-relaxed">From exam registration to professional printing — quality, speed, and accuracy.</p>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <!-- Service cards (same as before, just keep them) -->
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-display text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">CBT Exam Registration</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">JAMB UTME, WAEC GCE, NECO SSCE, NABTEB, IELTS, TOEFL, and professional exams.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-file-word text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Document Processing</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">Professional CV writing, business letters, project reports, thesis formatting, and data entry.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-print text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Printing & Photocopy</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">High-quality B/W and color printing, scanning, lamination, spiral binding, bulk photocopy.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-paintbrush text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Graphic Design</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">Custom logos, flyers, banners, business cards, ID cards, wedding invitations, social media creatives.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-camera-retro text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Passport Photographs</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">Instant digital passport photos meeting official requirements for visas, applications, and IDs.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                            <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 sm:p-5 hover:border-gray-400 transition-all duration-200 group cursor-pointer">
+                                <div class="w-9 h-9 sm:w-10 sm:h-10 bg-[#1a1a1a] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                                    <i class="fa-solid fa-credit-card text-white text-sm"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm sm:text-base tracking-tight mb-1.5">Online Payments</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed mb-3">Secure processing of bills, taxes, subscriptions, vendor payments, and fund transfers.</p>
+                                <span class="text-xs font-semibold tracking-tight inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    Learn more <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== PROCESS PAGE ==================== -->
+            <section id="process" class="page-section">
+                <div class="surface-alt border-b border-[#e0e0e0]">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14">
+                        <div class="mb-8">
+                            <span class="font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest">How We Work</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-2 mb-2">Our simple, effective process.</h2>
+                            <p class="text-sm text-gray-500 max-w-xl leading-relaxed">A streamlined workflow ensuring every service is delivered accurately and on time.</p>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="surface border border-[#e0e0e0] rounded-xl p-4 sm:p-5 relative">
+                                <span class="font-mono text-3xl sm:text-4xl font-bold text-gray-200 absolute top-3 right-3 select-none">01</span>
+                                <div class="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3 relative z-10">
+                                    <i class="fa-solid fa-comment-dots text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm tracking-tight mb-1.5">Tell Us What You Need</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed">Walk in or contact us. We listen carefully to understand your requirements.</p>
+                            </div>
+                            <div class="surface border border-[#e0e0e0] rounded-xl p-4 sm:p-5 relative">
+                                <span class="font-mono text-3xl sm:text-4xl font-bold text-gray-200 absolute top-3 right-3 select-none">02</span>
+                                <div class="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3 relative z-10">
+                                    <i class="fa-solid fa-clipboard-check text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm tracking-tight mb-1.5">We Process Accurately</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed">Trained staff handles your registration or document with precision.</p>
+                            </div>
+                            <div class="surface border border-[#e0e0e0] rounded-xl p-4 sm:p-5 relative">
+                                <span class="font-mono text-3xl sm:text-4xl font-bold text-gray-200 absolute top-3 right-3 select-none">03</span>
+                                <div class="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3 relative z-10">
+                                    <i class="fa-solid fa-eye text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm tracking-tight mb-1.5">You Review & Confirm</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed">We show you the work for verification before final submission.</p>
+                            </div>
+                            <div class="surface border border-[#e0e0e0] rounded-xl p-4 sm:p-5 relative">
+                                <span class="font-mono text-3xl sm:text-4xl font-bold text-gray-200 absolute top-3 right-3 select-none">04</span>
+                                <div class="w-8 h-8 sm:w-9 sm:h-9 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3 relative z-10">
+                                    <i class="fa-solid fa-circle-check text-white text-xs"></i>
+                                </div>
+                                <h3 class="font-semibold text-sm tracking-tight mb-1.5">Delivery & Satisfaction</h3>
+                                <p class="text-xs text-gray-500 leading-relaxed">Receive your completed work. We ensure you leave satisfied.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SATISFACTION PAGE ==================== -->
+            <section id="satisfaction" class="page-section">
+                <div class="surface border-b border-[#e0e0e0]">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14">
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <div>
+                                <span class="font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest">Customer Satisfaction</span>
+                                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-2 mb-3">Your satisfaction is our priority.</h2>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                                    We measure success by the customers who return and refer others. Every service is delivered with care and professionalism.
+                                </p>
+                                <div class="grid grid-cols-2 gap-3 mb-6">
+                                    <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 text-center">
+                                        <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="99">0</p>
+                                        <p class="text-[10px] text-gray-500 font-medium mt-1">Satisfaction Rate (%)</p>
+                                    </div>
+                                    <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 text-center">
+                                        <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="5200">0</p>
+                                        <p class="text-[10px] text-gray-500 font-medium mt-1">Happy Customers</p>
+                                    </div>
+                                    <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 text-center">
+                                        <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="850">0</p>
+                                        <p class="text-[10px] text-gray-500 font-medium mt-1">5-Star Reviews</p>
+                                    </div>
+                                    <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4 text-center">
+                                        <p class="font-mono text-2xl font-bold tracking-tight counter" data-target="6">0</p>
+                                        <p class="text-[10px] text-gray-500 font-medium mt-1">Years of Service</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="flex gap-0.5 text-[#1a1a1a] mb-2">
+                                        <i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i>
+                                    </div>
+                                    <p class="text-xs text-gray-600 leading-relaxed mb-3 italic">
+                                        "I registered my JAMB here in under 20 minutes. The staff guided me through course selection and everything was accurate. Highly recommended."
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 bg-gray-300 rounded-full flex items-center justify-center font-semibold text-[10px] text-gray-600">CO</div>
+                                        <div>
+                                            <p class="text-xs font-semibold tracking-tight">Chidera Okonkwo</p>
+                                            <p class="text-[10px] text-gray-500">JAMB Candidate, 2025</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="flex gap-0.5 text-[#1a1a1a] mb-2">
+                                        <i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i>
+                                    </div>
+                                    <p class="text-xs text-gray-600 leading-relaxed mb-3 italic">
+                                        "Got my final year project printed and bound here. Quality was excellent and turnaround time impressive. My trusted spot for academic work."
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 bg-gray-300 rounded-full flex items-center justify-center font-semibold text-[10px] text-gray-600">EA</div>
+                                        <div>
+                                            <p class="text-xs font-semibold tracking-tight">Emmanuel Adeyemi</p>
+                                            <p class="text-[10px] text-gray-500">University Student</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="flex gap-0.5 text-[#1a1a1a] mb-2">
+                                        <i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i><i class="fa-solid fa-star text-xs"></i>
+                                    </div>
+                                    <p class="text-xs text-gray-600 leading-relaxed mb-3 italic">
+                                        "Needed urgent passport photos for my visa. They captured and printed instantly. Quality met all embassy specifications perfectly."
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 bg-gray-300 rounded-full flex items-center justify-center font-semibold text-[10px] text-gray-600">FB</div>
+                                        <div>
+                                            <p class="text-xs font-semibold tracking-tight">Fatima Bello</p>
+                                            <p class="text-[10px] text-gray-500">Business Owner</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== FAQ PAGE ==================== -->
+            <section id="faq" class="page-section">
+                <div class="surface-alt border-b border-[#e0e0e0]">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="text-center mb-8">
+                                <span class="font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest">FAQ</span>
+                                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-2 mb-2">Frequently asked questions.</h2>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
+                                    <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
+                                        What documents do I need for CBT registration?
+                                        <i class="fa-solid fa-plus text-gray-400 text-xs transition-transform duration-300 flex-shrink-0 ml-3"></i>
+                                    </button>
+                                    <div class="faq-answer px-4 sm:px-5 text-xs text-gray-500 leading-relaxed">
+                                        Bring your NIN slip, passport photograph, and preferred course/institution details. For JAMB, you also need your O'Level result information. We guide you through every step.
+                                    </div>
+                                </div>
+                                <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
+                                    <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
+                                        How long does a typical registration take?
+                                        <i class="fa-solid fa-plus text-gray-400 text-xs transition-transform duration-300 flex-shrink-0 ml-3"></i>
+                                    </button>
+                                    <div class="faq-answer px-4 sm:px-5 text-xs text-gray-500 leading-relaxed">
+                                        Most registrations are completed within 15 to 30 minutes, depending on the exam type and how prepared your information is. We prioritize both speed and accuracy.
+                                    </div>
+                                </div>
+                                <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
+                                    <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
+                                        Can I book an appointment in advance?
+                                        <i class="fa-solid fa-plus text-gray-400 text-xs transition-transform duration-300 flex-shrink-0 ml-3"></i>
+                                    </button>
+                                    <div class="faq-answer px-4 sm:px-5 text-xs text-gray-500 leading-relaxed">
+                                        Yes. Call, send a WhatsApp message, or visit us to reserve a time slot. Helpful during peak registration periods to avoid waiting.
+                                    </div>
+                                </div>
+                                <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
+                                    <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
+                                        What payment methods do you accept?
+                                        <i class="fa-solid fa-plus text-gray-400 text-xs transition-transform duration-300 flex-shrink-0 ml-3"></i>
+                                    </button>
+                                    <div class="faq-answer px-4 sm:px-5 text-xs text-gray-500 leading-relaxed">
+                                        We accept cash and bank transfers. All payments are receipted immediately. Exam body fees are paid directly through their official portals.
+                                    </div>
+                                </div>
+                                <div class="surface border border-[#e0e0e0] rounded-xl overflow-hidden">
+                                    <button class="faq-toggle w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold text-sm tracking-tight" onclick="toggleFaq(this)">
+                                        Do you offer bulk printing discounts?
+                                        <i class="fa-solid fa-plus text-gray-400 text-xs transition-transform duration-300 flex-shrink-0 ml-3"></i>
+                                    </button>
+                                    <div class="faq-answer px-4 sm:px-5 text-xs text-gray-500 leading-relaxed">
+                                        Yes, we provide discounted rates for bulk printing and photocopying. Contact us with your volume requirements for a custom quote.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== CONTACT PAGE ==================== -->
+            <section id="contact" class="page-section">
+                <div class="surface">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-5 py-10 sm:py-14">
+                        <div class="grid lg:grid-cols-5 gap-8">
+                            <div class="lg:col-span-3">
+                                <span class="font-mono text-[10px] font-semibold text-gray-500 uppercase tracking-widest">Get In Touch</span>
+                                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-2 mb-2">Send us a message.</h2>
+                                <p class="text-sm text-gray-500 mb-6 leading-relaxed">Fill out the form and we will get back to you within 24 hours.</p>
+
+                                <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                                    <div class="grid sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1.5">Full Name</label>
+                                            <input type="text" required class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition" placeholder="John Doe">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1.5">Phone Number</label>
+                                            <input type="tel" required class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition" placeholder="0803 456 7890">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1.5">Email Address</label>
+                                        <input type="email" required class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition" placeholder="hello@example.com">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1.5">Service Needed</label>
+                                        <select class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition">
+                                            <option value="">Select a service...</option>
+                                            <option>CBT Registration</option>
+                                            <option>Typing & Documents</option>
+                                            <option>Printing & Photocopy</option>
+                                            <option>Graphic Design</option>
+                                            <option>Passport Photograph</option>
+                                            <option>Online Payment</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1.5">Message</label>
+                                        <textarea rows="3" class="material-input w-full px-3 py-2.5 text-xs border border-[#e0e0e0] rounded-lg bg-white focus:border-[#1a1a1a] transition resize-none" placeholder="Tell us more about what you need..."></textarea>
+                                    </div>
+                                    <button type="submit" class="material-btn bg-[#1a1a1a] text-white w-full py-3 rounded-full text-xs font-semibold tracking-tight inline-flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-paper-plane text-[10px]"></i> Send Message
+                                    </button>
+                                </form>
+                                <p id="formSuccess" class="hidden text-center text-emerald-600 text-xs font-medium mt-4">
+                                    <i class="fa-solid fa-circle-check"></i> Message sent successfully. We will get back to you shortly.
+                                </p>
+                            </div>
+
+                            <div class="lg:col-span-2 space-y-3">
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-location-dot text-white text-xs"></i>
+                                    </div>
+                                    <p class="font-semibold text-sm tracking-tight mb-1">Our Location</p>
+                                    <p class="text-xs text-gray-500 leading-relaxed">Igbo-Etche Junction, Etche, Rivers State, Nigeria</p>
+                                </div>
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-phone text-white text-xs"></i>
+                                    </div>
+                                    <p class="font-semibold text-sm tracking-tight mb-1">Phone & WhatsApp</p>
+                                    <p class="text-xs text-gray-500">0803 456 7890</p>
+                                    <p class="text-xs text-gray-500">0912 345 6789</p>
+                                </div>
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-envelope text-white text-xs"></i>
+                                    </div>
+                                    <p class="font-semibold text-sm tracking-tight mb-1">Email</p>
+                                    <p class="text-xs text-gray-500">hello@primelinkcyber.com</p>
+                                </div>
+                                <div class="surface-alt border border-[#e0e0e0] rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-[#1a1a1a] rounded-full flex items-center justify-center mb-3">
+                                        <i class="fa-solid fa-clock text-white text-xs"></i>
+                                    </div>
+                                    <p class="font-semibold text-sm tracking-tight mb-1">Business Hours</p>
+                                    <p class="text-xs text-gray-500">Monday – Saturday</p>
+                                    <p class="text-xs text-gray-500">8:00 AM – 7:00 PM</p>
+                                    <p class="text-[10px] text-red-500 font-medium mt-1">Closed on Sundays</p>
+                                </div>
+                                <!-- Google Maps Embed for Igbo-Etche Junction -->
+                                <div class="rounded-xl overflow-hidden h-40 border border-[#e0e0e0]">
+                                    <iframe
+                                        src="https://maps.google.com/maps?q=Igbo-Etche+Junction+Rivers+State&output=embed"
+                                        width="100%"
+                                        height="100%"
+                                        style="border:0;"
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Google Map showing Igbo-Etche Junction">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="surface mt-auto">
+            <div class="max-w-4xl mx-auto px-4 sm:px-5 py-8 sm:py-10">
+                <div class="grid sm:grid-cols-3 gap-6 mb-6">
+                    <div class="sm:col-span-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-7 h-7 bg-[#1a1a1a] rounded-md flex items-center justify-center">
+                                <img src="/images/logo.png" alt="Logo" class="w-full h-full object-contain rounded-md" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-mono font-semibold text-[10px] text-white\'>PL</span>';">
+                            </div>
+                            <span class="font-semibold text-sm tracking-tight">PrimeLink</span>
+                        </div>
+                        <p class="text-xs text-gray-500 leading-relaxed">Trusted CBT registration, document processing, and online services since 2018.</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-xs tracking-tight mb-2">Services</p>
+                        <ul class="space-y-1.5 text-xs text-gray-500">
+                            <li><a href="#" class="hover:text-gray-900 transition">CBT Registration</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">Typing & Documents</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">Printing & Photocopy</a></li>
+                            <li><a href="#" class="hover:text-gray-900 transition">Graphic Design</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-xs tracking-tight mb-2">Contact</p>
+                        <ul class="space-y-1.5 text-xs text-gray-500">
+                            <li>Igbo-Etche Junction, Rivers State</li>
+                            <li>0803 456 7890</li>
+                            <li>hello@primelinkcyber.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-[#e0e0e0] pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+                    <p>&copy; 2026 PrimeLink Cybercafe. All rights reserved.</p>
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-gray-900 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function openSidebar() {
+            sidebar.classList.remove('sidebar-closed');
+            sidebar.classList.add('sidebar-open');
+            overlay.classList.remove('overlay-hidden');
+            overlay.classList.add('overlay-visible');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('sidebar-closed');
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.add('overlay-hidden');
+            overlay.classList.remove('overlay-visible');
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.contains('sidebar-closed') ? openSidebar() : closeSidebar();
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) closeSidebar();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+
+        // ----- Page switching logic -----
+        const allPages = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function showPage(pageId) {
+            // Hide all pages
+            allPages.forEach(page => {
+                page.classList.remove('active');
+                // Force opacity to 0 instantly when hiding
+                page.style.opacity = '0';
+                // After transition, set display none
+                setTimeout(() => {
+                    if (!page.classList.contains('active')) {
+                        page.style.display = 'none';
+                    }
+                }, 300);
+            });
+
+            // Show the target page
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.style.display = 'block';
+                // Trigger reflow
+                void target.offsetWidth;
+                target.classList.add('active');
+                target.style.opacity = '1';
+                // Update URL hash
+                window.location.hash = pageId;
+                // Scroll to top smoothly
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('bg-white/10', 'text-white');
+                link.classList.add('text-gray-300');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('bg-white/10', 'text-white');
+                    link.classList.remove('text-gray-300');
+                }
+            });
+        }
+
+        // Attach click handlers to all nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    showPage(pageId);
+                }
+                // If it's the sidebar link, also close sidebar
+                if (this.closest('.sidebar')) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // On page load, check URL hash
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1);
+            const initialPage = hash && document.getElementById(hash) ? hash : 'home';
+            showPage(initialPage);
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showPage(hash);
+            }
+        });
+
+        // FAQ toggle
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('.fa-plus, .fa-minus');
+            const isOpen = answer.classList.contains('open');
+
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-toggle i').forEach(i => {
+                i.classList.remove('fa-minus');
+                i.classList.add('fa-plus');
+                i.style.transform = 'rotate(0deg)';
+            });
+
+            if (!isOpen) {
+                answer.classList.add('open');
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                icon.style.transform = 'rotate(45deg)';
+            }
+        }
+
+        // Contact form
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const btn = form.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                form.reset();
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                const success = document.getElementById('formSuccess');
+                success.classList.remove('hidden');
+                setTimeout(() => success.classList.add('hidden'), 5000);
+            }, 1500);
+        }
+
+        // Counter animation (only when satisfaction page becomes visible)
+        const counters = document.querySelectorAll('.counter');
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            const satisfactionPage = document.getElementById('satisfaction');
+            if (!satisfactionPage || !satisfactionPage.classList.contains('active')) return;
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let count = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        counter.textContent = target.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(count).toLocaleString();
+                    }
+                }, 30);
+            });
+            countersAnimated = true;
+        }
+
+        // Re-run counter animation when satisfaction page is shown
+        const satisfactionObserver = new MutationObserver(() => {
+            if (document.getElementById('satisfaction').classList.contains('active')) {
+                animateCounters();
+            }
+        });
+        const satisfactionPage = document.getElementById('satisfaction');
+        if (satisfactionPage) {
+            satisfactionObserver.observe(satisfactionPage, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        // Also try on initial load if satisfaction is the active page
+        if (window.location.hash === '#satisfaction') {
+            setTimeout(animateCounters, 100);
+        }
+
+        console.log('PrimeLink Cybercafe - Multi-page mode ready');
+    </script>
+
+</body>
+</html>
